@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+
 import tkinter as tk
 from tkinter import filedialog
 from stegano import lsb
@@ -46,6 +46,4 @@ analysis_label = tk.Label(app, text="")
 analysis_label.pack(pady=20)
 
 app.mainloop()
-=======
-print ("Testing out the GIT")
->>>>>>> Stashed changes
+
