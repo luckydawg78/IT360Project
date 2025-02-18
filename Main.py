@@ -5,7 +5,7 @@ from stegano import lsb
 
 def upload_file():
     global file_path
-    file_path = filedialog.askopenfilename(filetypes=[("Images", "*.jpeg *.jpg *.png *.gif")])
+    file_path = filedialog.askopenfilename(filetypes=[("Images", "*.jpeg *.jpg *.png")])
     if file_path:
         label.config(text=f"File selected: {file_path}", fg="black", bg="green")
 
