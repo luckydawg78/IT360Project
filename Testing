@@ -1,13 +1,13 @@
 import tkinter as tk
 from tkinter import filedialog
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageSequence
 from stegano import lsb
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 
 def upload_file():
     global file_path, img_label
-    file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpeg *.jpg *.png")])
+    file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpeg *.jpg *.png *.gif")])
     if file_path:
         label.config(text=f"File selected: {file_path}", bootstyle="success")
         img = Image.open(file_path)
@@ -25,11 +25,25 @@ def embed_message():
         analysis_label.config(text="Please enter a message to hide.", bootstyle="danger")
         return
     try:
-        output_path = file_path.rsplit('.', 1)[0] + "_stego.png"
-        lsb.hide(file_path, message).save(output_path)
-        analysis_label.config(text=f"Hidden message embedded. Saved to: {output_path}", bootstyle="success")
+        if file_path.lower().endswith('.gif'):
+            embed_message_in_gif(file_path, message)
+        else:
+            output_path = file_path.rsplit('.', 1)[0] + "_stego.png"
+            lsb.hide(file_path, message).save(output_path)
+            analysis_label.config(text=f"Hidden message embedded. Saved to: {output_path}", bootstyle="success")
     except Exception as e:
         analysis_label.config(text=f"Error embedding message: {e}", bootstyle="danger")
+
+def embed_message_in_gif(file_path, message):
+    img = Image.open(file_path)
+    frames = []
+    for frame in ImageSequence.Iterator(img):
+        frame = frame.convert("RGBA")
+        frame = lsb.hide(frame, message)
+        frames.append(frame)
+    output_path = file_path.rsplit('.', 1)[0] + "_stego.gif"
+    frames[0].save(output_path, save_all=True, append_images=frames[1:], loop=0)
+    analysis_label.config(text=f"Hidden message embedded in GIF. Saved to: {output_path}", bootstyle="success")
 
 window = ttk.Window(themename="superhero")
 window.title("Python Steganography")
