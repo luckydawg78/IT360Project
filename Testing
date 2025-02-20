@@ -33,7 +33,7 @@ def embed_message():
 
 window = ttk.Window(themename="superhero")
 window.title("Python Steganography")
-window.geometry("800x700")
+window.geometry("800x600")
 
 upload_button = ttk.Button(window, text="Upload File", command=upload_file, bootstyle="primary")
 upload_button.pack(pady=10)
