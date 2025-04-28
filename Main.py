@@ -14,6 +14,12 @@ def upload_directory():
         label.config(text=f"Directory selected: {directory_path}")
         process_directory(directory_path)
 
+def upload_image():
+    file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg;*.png;*.gif")])
+    if file_path:
+        label.config(text=f"Image selected: {file_path}")
+        process_file(file_path)
+
 def process_directory(directory_path):
     for root, dirs, files in os.walk(directory_path):
         for file in files:
@@ -71,12 +77,15 @@ def process_file(file_path):
 # Create GUI
 app = tk.Tk()
 app.title("Image Analysis Tool")
-app.geometry("400x200")
+app.geometry("400x250")
 
-upload_button = tk.Button(app, text="Upload Directory", command=upload_directory)
-upload_button.pack(pady=20)
+upload_dir_button = tk.Button(app, text="Upload Directory", command=upload_directory)
+upload_dir_button.pack(pady=10)
 
-label = tk.Label(app, text="No directory selected")
+upload_image_button = tk.Button(app, text="Upload Image", command=upload_image)
+upload_image_button.pack(pady=10)
+
+label = tk.Label(app, text="No directory or image selected")
 label.pack(pady=20)
 
 app.mainloop()
