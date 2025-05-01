@@ -31,7 +31,7 @@ def get_clean_exif(path):
 def upload_file():
     global file_path
     file_path = filedialog.askopenfilename(
-        filetypes=[("Image files", "*.jpeg *.jpg *.png *.gif")]
+        filetypes=[("Image files", "*.jpeg *.jpg *.png)]
     )
     if not file_path:
         return
