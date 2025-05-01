@@ -38,7 +38,6 @@ def upload_file():
 
     label.config(text=f"File selected: {file_path}", bootstyle="success")
 
-    # Display thumbnail (skip animated GIFs gracefully)
     try:
         img = Image.open(file_path)
         img.thumbnail((400, 400))
