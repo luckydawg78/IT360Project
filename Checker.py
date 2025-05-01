@@ -12,7 +12,7 @@ file_path = ""
 
 def upload_file():
     global file_path, img_label
-    file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpeg *.jpg *.png *.gif")])
+    file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpeg *.jpg *.png")])
     if file_path:
         label.config(text=f"File selected: {file_path}", bootstyle="success")
         img = Image.open(file_path)
